@@ -14,6 +14,8 @@
 		45C948B62B03F25C00577F26 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C948B52B03F25C00577F26 /* MapView.swift */; };
 		45C948B82B03F2D500577F26 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C948B72B03F2D500577F26 /* ListView.swift */; };
 		45C948BA2B03F31800577F26 /* ScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C948B92B03F31800577F26 /* ScanView.swift */; };
+		45C948BF2B04030900577F26 /* FireDBHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C948BE2B04030900577F26 /* FireDBHelper.swift */; };
+		45C948C12B04035100577F26 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C948C02B04035100577F26 /* Book.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +27,8 @@
 		45C948B52B03F25C00577F26 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		45C948B72B03F2D500577F26 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		45C948B92B03F31800577F26 /* ScanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanView.swift; sourceTree = "<group>"; };
+		45C948BE2B04030900577F26 /* FireDBHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireDBHelper.swift; sourceTree = "<group>"; };
+		45C948C02B04035100577F26 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +93,7 @@
 		45C948B32B03F1A100577F26 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				45C948BE2B04030900577F26 /* FireDBHelper.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -96,6 +101,7 @@
 		45C948B42B03F1A800577F26 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				45C948C02B04035100577F26 /* Book.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -195,6 +201,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				45C948B82B03F2D500577F26 /* ListView.swift in Sources */,
+				45C948BF2B04030900577F26 /* FireDBHelper.swift in Sources */,
+				45C948C12B04035100577F26 /* Book.swift in Sources */,
 				241A3FDD2B02ABF7000DCAB6 /* ContentView.swift in Sources */,
 				45C948BA2B03F31800577F26 /* ScanView.swift in Sources */,
 				45C948B62B03F25C00577F26 /* MapView.swift in Sources */,

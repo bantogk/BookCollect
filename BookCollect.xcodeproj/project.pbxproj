@@ -11,6 +11,9 @@
 		241A3FDD2B02ABF7000DCAB6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241A3FDC2B02ABF7000DCAB6 /* ContentView.swift */; };
 		241A3FDF2B02AC06000DCAB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 241A3FDE2B02AC06000DCAB6 /* Assets.xcassets */; };
 		241A3FE22B02AC06000DCAB6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 241A3FE12B02AC06000DCAB6 /* Preview Assets.xcassets */; };
+		45C948B62B03F25C00577F26 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C948B52B03F25C00577F26 /* MapView.swift */; };
+		45C948B82B03F2D500577F26 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C948B72B03F2D500577F26 /* ListView.swift */; };
+		45C948BA2B03F31800577F26 /* ScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C948B92B03F31800577F26 /* ScanView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +22,9 @@
 		241A3FDC2B02ABF7000DCAB6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		241A3FDE2B02AC06000DCAB6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		241A3FE12B02AC06000DCAB6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		45C948B52B03F25C00577F26 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		45C948B72B03F2D500577F26 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
+		45C948B92B03F31800577F26 /* ScanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,8 +57,10 @@
 		241A3FD92B02ABF7000DCAB6 /* BookCollect */ = {
 			isa = PBXGroup;
 			children = (
+				45C948B42B03F1A800577F26 /* Models */,
+				45C948B32B03F1A100577F26 /* Data */,
+				45C948B22B03F19700577F26 /* Views */,
 				241A3FDA2B02ABF7000DCAB6 /* BookCollectApp.swift */,
-				241A3FDC2B02ABF7000DCAB6 /* ContentView.swift */,
 				241A3FDE2B02AC06000DCAB6 /* Assets.xcassets */,
 				241A3FE02B02AC06000DCAB6 /* Preview Content */,
 			);
@@ -65,6 +73,55 @@
 				241A3FE12B02AC06000DCAB6 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		45C948B22B03F19700577F26 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				45C948BD2B03F35200577F26 /* List */,
+				45C948BC2B03F34A00577F26 /* Scan */,
+				45C948BB2B03F34200577F26 /* Map */,
+				241A3FDC2B02ABF7000DCAB6 /* ContentView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		45C948B32B03F1A100577F26 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		45C948B42B03F1A800577F26 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		45C948BB2B03F34200577F26 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				45C948B52B03F25C00577F26 /* MapView.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		45C948BC2B03F34A00577F26 /* Scan */ = {
+			isa = PBXGroup;
+			children = (
+				45C948B92B03F31800577F26 /* ScanView.swift */,
+			);
+			path = Scan;
+			sourceTree = "<group>";
+		};
+		45C948BD2B03F35200577F26 /* List */ = {
+			isa = PBXGroup;
+			children = (
+				45C948B72B03F2D500577F26 /* ListView.swift */,
+			);
+			path = List;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,7 +194,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45C948B82B03F2D500577F26 /* ListView.swift in Sources */,
 				241A3FDD2B02ABF7000DCAB6 /* ContentView.swift in Sources */,
+				45C948BA2B03F31800577F26 /* ScanView.swift in Sources */,
+				45C948B62B03F25C00577F26 /* MapView.swift in Sources */,
 				241A3FDB2B02ABF7000DCAB6 /* BookCollectApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -11,6 +11,7 @@
 		241A3FDD2B02ABF7000DCAB6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241A3FDC2B02ABF7000DCAB6 /* ContentView.swift */; };
 		241A3FDF2B02AC06000DCAB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 241A3FDE2B02AC06000DCAB6 /* Assets.xcassets */; };
 		241A3FE22B02AC06000DCAB6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 241A3FE12B02AC06000DCAB6 /* Preview Assets.xcassets */; };
+		450167DC2B14DC6100718688 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450167DB2B14DC6100718688 /* LocationManager.swift */; };
 		45C948B62B03F25C00577F26 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C948B52B03F25C00577F26 /* MapView.swift */; };
 		45C948B82B03F2D500577F26 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C948B72B03F2D500577F26 /* ListView.swift */; };
 		45C948BA2B03F31800577F26 /* ScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C948B92B03F31800577F26 /* ScanView.swift */; };
@@ -24,6 +25,7 @@
 		241A3FDC2B02ABF7000DCAB6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		241A3FDE2B02AC06000DCAB6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		241A3FE12B02AC06000DCAB6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		450167DB2B14DC6100718688 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		45C948B52B03F25C00577F26 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		45C948B72B03F2D500577F26 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		45C948B92B03F31800577F26 /* ScanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanView.swift; sourceTree = "<group>"; };
@@ -61,6 +63,7 @@
 		241A3FD92B02ABF7000DCAB6 /* BookCollect */ = {
 			isa = PBXGroup;
 			children = (
+				450167DA2B14DBFF00718688 /* Helpers */,
 				45C948B42B03F1A800577F26 /* Models */,
 				45C948B32B03F1A100577F26 /* Data */,
 				45C948B22B03F19700577F26 /* Views */,
@@ -77,6 +80,14 @@
 				241A3FE12B02AC06000DCAB6 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		450167DA2B14DBFF00718688 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				450167DB2B14DC6100718688 /* LocationManager.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		45C948B22B03F19700577F26 /* Views */ = {
@@ -204,6 +215,7 @@
 				45C948BF2B04030900577F26 /* FireDBHelper.swift in Sources */,
 				45C948C12B04035100577F26 /* Book.swift in Sources */,
 				241A3FDD2B02ABF7000DCAB6 /* ContentView.swift in Sources */,
+				450167DC2B14DC6100718688 /* LocationManager.swift in Sources */,
 				45C948BA2B03F31800577F26 /* ScanView.swift in Sources */,
 				45C948B62B03F25C00577F26 /* MapView.swift in Sources */,
 				241A3FDB2B02ABF7000DCAB6 /* BookCollectApp.swift in Sources */,
@@ -338,6 +350,8 @@
 				DEVELOPMENT_TEAM = 38FCCT3RYS;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "App \"BookCollect\" wants to gain access to your location.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "App \"BookCollect\" wants to gain access to your location.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -367,6 +381,8 @@
 				DEVELOPMENT_TEAM = 38FCCT3RYS;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "App \"BookCollect\" wants to gain access to your location.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "App \"BookCollect\" wants to gain access to your location.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

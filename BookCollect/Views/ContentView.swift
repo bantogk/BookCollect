@@ -23,7 +23,9 @@ final class TabRouter: ObservableObject{
 struct ContentView: View {
     
     @StateObject var router = TabRouter()
-    
+    @EnvironmentObject var locationHelper : LocationHelper
+    let locations: [Location]
+
     
     var body: some View {
         
@@ -38,6 +40,7 @@ struct ContentView: View {
                     }//scanTab
                 
                 MapView()
+                    .environmentObject(self.locationHelper)
                     .tag(Screen.scan)
                     .environmentObject(router)
                     .tabItem {
@@ -60,8 +63,8 @@ struct ContentView: View {
     }//Body
 }//View
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentView(locations: locations)
+//    }
+//}

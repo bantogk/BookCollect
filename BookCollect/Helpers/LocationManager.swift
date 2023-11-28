@@ -3,11 +3,12 @@
 
 import Foundation
 import CoreLocation
+import MapKit
 
 class LocationHelper : NSObject, ObservableObject, CLLocationManagerDelegate{
     
     @Published var currentLocation : CLLocation?
-    
+
     private let locationManager = CLLocationManager()
     private let geoCoder = CLGeocoder()
     
@@ -16,6 +17,9 @@ class LocationHelper : NSObject, ObservableObject, CLLocationManagerDelegate{
         
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager.delegate = self
+        self.locationManager.distanceFilter = kCLDistanceFilterNone
+//        self.locationManager.requestWhenInUseAuthorization()
+//        self.locationManager.startUpdatingLocation()
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
@@ -66,6 +70,7 @@ class LocationHelper : NSObject, ObservableObject, CLLocationManagerDelegate{
                 print(#function, "Most recent location : \(String(describing: locations.last))")
                 
                 self.currentLocation = locations.last
+                
             }else{
                 print(#function, "previously known location : \(String(describing: locations.first))")
                 

@@ -1,9 +1,5 @@
-//
-//  LocationAnnotation.swift
-//  BookCollect
-//
-//  Created by Eli Munoz on 2023-11-27.
-//
+// Melissa Munoz / Eli - 991642239
+
 
 import Foundation
 import MapKit

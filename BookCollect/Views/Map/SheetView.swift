@@ -1,9 +1,4 @@
-//
-//  MapView.swift
-//  BookCollect
-//
-//  Created by Eli Munoz on 2023-11-14.
-//
+// Melissa Munoz / Eli - 991642239
 
 
 import SwiftUI
@@ -16,7 +11,7 @@ struct SheetView: View {
     @State private var tapped: Bool = false
     
     
-    private func getNearByLandmarks() {
+    private func getNearByLocations() {
         
         let request = MKLocalSearch.Request()
         request.naturalLanguageQuery = search
@@ -25,8 +20,10 @@ struct SheetView: View {
         search.start { (response, error) in
             if let response = response {
                 
+                //get the locations
                 let mapItems = response.mapItems
                 
+                //now we can create an array of locations
                 self.locations = mapItems.map {
                     Location(placemark: $0.placemark)
                 }//self.locations
@@ -54,10 +51,11 @@ struct SheetView: View {
             HStack {
                 Image(systemName: "magnifyingglass")
                 
-                TextField("Search for a restaurant", text: $search, onEditingChanged: {_ in}){
-                    self.getNearByLandmarks()
+                TextField("Search", text: $search, onEditingChanged: {_ in}){
+                    self.getNearByLocations()
                 }//onEditingChanged
                 .autocorrectionDisabled()
+                .keyboardType(.default)
             }
             .modifier(TextFieldGrayBackgroundColor())
             

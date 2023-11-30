@@ -1,9 +1,4 @@
-//
-//  BookCollectApp.swift
-//  BookCollect
-//
-//  Created by Kyelle on 2023-11-13.
-//
+
 
 import SwiftUI
 
@@ -15,6 +10,7 @@ struct BookCollectApp: App {
     }
     
     let locationHelper = LocationHelper()
+    let bookManager = BookManager()
     let locations: [Location]
 
     
@@ -22,6 +18,7 @@ struct BookCollectApp: App {
         WindowGroup {
             ContentView(locations: locations)
                 .environmentObject(self.locationHelper)
+                .environmentObject(self.bookManager)
         }
     }
 }

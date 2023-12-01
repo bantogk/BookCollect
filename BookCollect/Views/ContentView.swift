@@ -36,6 +36,7 @@ struct ContentView: View {
                     }//scanTab
                 
                 RecView()
+                    .padding()
                     .tag(Screen.rec)
                     .environmentObject(router)
                     .environmentObject(bookManager)
@@ -53,6 +54,7 @@ struct ContentView: View {
 //                    }//mapTab
                 
                 ListView()
+                    .padding()
                     .tag(Screen.list)
                     .environmentObject(router)
                     .tabItem {

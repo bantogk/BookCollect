@@ -2,6 +2,7 @@
 
 
 import Foundation
+import UIKit
 
 struct Books: Identifiable, Codable {
     var id: String?
@@ -60,25 +61,37 @@ struct VolumeInfo: Codable {
     var authors: [String]
     var publisher: String?
     var description: String
+    var averageRating: Float?
+    var ratingsCount: Int?
     var industryIdentifiers: [IndustryIdentifiers]
     var categories: [String]?
+    
+    var imageLinks : ImageLinks?
+    var image : UIImage?
+    
 
     enum CodingKeys: String, CodingKey {
         case title
         case authors
         case publisher
         case description
+        case averageRating
+        case ratingsCount
         case industryIdentifiers
         case categories
+        case imageLinks
     }
     
-    init(title: String, authors: [String], publisher: String, description: String, industryIdentifiers: [IndustryIdentifiers], categories: [String]?) {
+    init(title: String, authors: [String], publisher: String, description: String, industryIdentifiers: [IndustryIdentifiers], categories: [String]?, averageRating: Float, ratingsCount: Int, imageLinks: ImageLinks) {
         self.title = title
         self.authors = authors
         self.publisher = publisher
         self.description = description
+        self.ratingsCount = ratingsCount
+        self.averageRating = averageRating
         self.industryIdentifiers = industryIdentifiers
         self.categories = categories
+        self.imageLinks = imageLinks
     }
 
     init(from decoder: Decoder) throws {
@@ -87,8 +100,11 @@ struct VolumeInfo: Codable {
         self.authors = try container.decodeIfPresent([String].self, forKey: .authors) ?? []
         self.publisher = try container.decodeIfPresent(String.self, forKey: .publisher) ?? "NA"
         self.description = try container.decodeIfPresent(String.self, forKey: .description) ?? "NA"
+        self.averageRating = try container.decodeIfPresent(Float.self, forKey: .averageRating) ?? 0.0
+        self.ratingsCount = try container.decodeIfPresent(Int.self, forKey: .ratingsCount) ?? 0
         self.industryIdentifiers = try container.decodeIfPresent([IndustryIdentifiers].self, forKey: .industryIdentifiers) ?? [IndustryIdentifiers]()
         self.categories = try container.decodeIfPresent([String].self, forKey: .categories)
+        self.imageLinks = try container.decodeIfPresent(ImageLinks.self, forKey: .imageLinks)
     }
     
     init() {
@@ -96,6 +112,8 @@ struct VolumeInfo: Codable {
         self.authors = []
         self.publisher = ""
         self.description = ""
+        self.averageRating = 0.0
+        self.ratingsCount = 0
         self.industryIdentifiers = []
         self.categories = []
     }
@@ -124,6 +142,21 @@ struct IndustryIdentifiers: Codable {
     init() {
         self.type = ""
         self.identifier = ""
+    }
+}
+
+struct ImageLinks: Codable {
+    var smallThumbnail: URL?
+    var thumbnail: URL?
+
+    enum CodingKeys: String, CodingKey {
+        case smallThumbnail
+        case thumbnail
+    }
+    
+    init(smallThumbnail: String, thumbnail: String) {
+        self.smallThumbnail = URL(string:"")
+        self.thumbnail = URL(string:"")
     }
 }
 

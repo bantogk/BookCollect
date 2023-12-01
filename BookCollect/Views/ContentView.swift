@@ -1,19 +1,14 @@
-//
-//  ContentView.swift
-//  BookCollect
-//
-//  Created by Kyelle on 2023-11-13.
-//
+
 
 import SwiftUI
 
 enum Screen {
-    case map, scan, list
+    case rec, scan, list
 }//tabEnum
 
 final class TabRouter: ObservableObject{
     
-    @Published var screen: Screen = .map
+    @Published var screen: Screen = .scan
     
     func change(to screen: Screen){
         self.screen = screen
@@ -24,6 +19,7 @@ struct ContentView: View {
     
     @StateObject var router = TabRouter()
     @EnvironmentObject var locationHelper : LocationHelper
+    @EnvironmentObject var bookManager : BookManager
     let locations: [Location]
 
     
@@ -33,22 +29,32 @@ struct ContentView: View {
             TabView(selection: $router.screen){
                 
                 ScanView()
-                    .tag(Screen.map)
+                    .tag(Screen.scan)
                     .environmentObject(router)
                     .tabItem{
                         Label("Scan", systemImage:"barcode.viewfinder")
                     }//scanTab
                 
-                MapView()
-                    .environmentObject(self.locationHelper)
-                    .tag(Screen.scan)
+                RecView()
+                    .padding()
+                    .tag(Screen.rec)
                     .environmentObject(router)
-                    .tabItem {
-                        Label("Map", systemImage:"map.circle.fill")
-                        
-                    }//mapTab
+                    .environmentObject(bookManager)
+                    .tabItem{
+                        Label("Recs", systemImage:"book.circle")
+                    }//scanTab
+                
+//                MapView()
+//                    .environmentObject(self.locationHelper)
+//                    .tag(Screen.scan)
+//                    .environmentObject(router)
+//                    .tabItem {
+//                        Label("Map", systemImage:"map.circle.fill")
+//                        
+//                    }//mapTab
                 
                 ListView()
+                    .padding()
                     .tag(Screen.list)
                     .environmentObject(router)
                     .tabItem {

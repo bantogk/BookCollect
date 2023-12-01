@@ -1,9 +1,5 @@
-//
-//  MapView.swift
-//  BookCollect
-//
-//  Created by Eli Munoz on 2023-11-14.
-//
+// Melissa Munoz / Eli - 991642239
+
 
 
 import Foundation
@@ -89,11 +85,11 @@ struct BookMap : UIViewRepresentable{
         
         uiView.setRegion(region, animated: true)
         
-        let pin = MKPointAnnotation()
-        pin.coordinate = centerPoint
-        pin.title = "Current Location"
+//        let pin = MKPointAnnotation()
+//        pin.coordinate = centerPoint
+//        pin.title = "Current Location"
         
-        uiView.addAnnotation(pin)
+//        uiView.addAnnotation(pin)
     }
     
     private func updateAnnotations(from mapView: MKMapView) {

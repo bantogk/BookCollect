@@ -1,9 +1,4 @@
-//
-//  MapView.swift
-//  BookCollect
-//
-//  Created by Eli Munoz on 2023-11-14.
-//
+// Melissa Munoz / Eli - 991642239
 
 import SwiftUI
 import MapKit

@@ -1,9 +1,4 @@
-//
-//  LocationAnnotation.swift
-//  BookCollect
-//
-//  Created by Eli Munoz on 2023-11-27.
-//
+
 
 import Foundation
 import MapKit

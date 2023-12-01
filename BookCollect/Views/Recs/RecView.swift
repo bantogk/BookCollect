@@ -1,9 +1,11 @@
+// Melissa Munoz / Eli - 991642239
+
 /* TO DO: Save recommendations to subcollections in database */
 
 import SwiftUI
 
 struct RecView: View {
-    @State private var category: String = "horror"
+    @State private var category: String = "adventure"
     @EnvironmentObject var bookManager: BookManager
     @State private var bookList: [Books] = [Books]()
     

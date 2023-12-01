@@ -85,11 +85,11 @@ struct BookMap : UIViewRepresentable{
         
         uiView.setRegion(region, animated: true)
         
-        let pin = MKPointAnnotation()
-        pin.coordinate = centerPoint
-        pin.title = "Current Location"
+//        let pin = MKPointAnnotation()
+//        pin.coordinate = centerPoint
+//        pin.title = "Current Location"
         
-        uiView.addAnnotation(pin)
+//        uiView.addAnnotation(pin)
     }
     
     private func updateAnnotations(from mapView: MKMapView) {

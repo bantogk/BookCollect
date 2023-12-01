@@ -1,4 +1,4 @@
-/* To Do: Grab image as well */
+// Melissa Munoz / Eli - 991642239
 
 import SwiftUI
 

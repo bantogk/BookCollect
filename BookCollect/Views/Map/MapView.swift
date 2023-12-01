@@ -6,25 +6,50 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct MapView: View {
     
+    //for tabview
     @EnvironmentObject var router : TabRouter
+    @EnvironmentObject var locationHelper : LocationHelper
+    
+    @State private var locations: [Location] = [Location]()
+    
+    @State private var isSheetPresented: Bool = false
+    
     
     var body: some View {
         ZStack{
             VStack{
                 
-                Text("Map View")
+                Text(self.locationHelper.currentLocation?.coordinate.longitude.description ?? "NA")
                     .bold()
                     .foregroundColor(.white)
-                
-                Button{
-                    router.change(to: .list)
-                }label:{
-                    Text("To List")
-                }//Button
-                
+                Text(self.locationHelper.currentLocation?.coordinate.latitude.description ?? "NA")
+                    .bold()
+                    .foregroundColor(.white)
+                ZStack(alignment: .bottomTrailing){
+                    BookMap(locations: locations).environmentObject(self.locationHelper)
+                    
+                        .sheet(isPresented: $isSheetPresented) {
+                            SheetView(locations: locations)
+                        }//sheet
+                    
+                    Button {
+                        self.isSheetPresented = true
+                    } label: {
+                        Image(systemName: "magnifyingglass")
+                            .font(.title.weight(.semibold))
+                            .padding()
+                            .background(Color.pink)
+                            .foregroundColor(.white)
+                            .clipShape(Circle())
+                    }//Button
+                    .padding(.bottom,80)
+                    .padding(.trailing, 20)
+                    
+                }//ZStack
             }//VStack
         }//ZStack
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -33,6 +58,6 @@ struct MapView: View {
     }//body
 }//Struct
 
-#Preview {
-    MapView().environmentObject(TabRouter())
-}
+//#Preview {
+//    MapView().environmentObject(TabRouter())
+//}

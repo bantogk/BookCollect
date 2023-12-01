@@ -9,9 +9,19 @@ import SwiftUI
 
 @main
 struct BookCollectApp: App {
+    
+    init() {
+        self.locations = []
+    }
+    
+    let locationHelper = LocationHelper()
+    let locations: [Location]
+
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(locations: locations)
+                .environmentObject(self.locationHelper)
         }
     }
 }

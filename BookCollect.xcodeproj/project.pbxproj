@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2418F7622B1E276C00D5D74F /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 2418F7612B1E276C00D5D74F /* CodeScanner */; };
+		2418F7662B1E359D00D5D74F /* BookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2418F7652B1E359D00D5D74F /* BookView.swift */; };
 		241A3FDB2B02ABF7000DCAB6 /* BookCollectApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241A3FDA2B02ABF7000DCAB6 /* BookCollectApp.swift */; };
 		241A3FDD2B02ABF7000DCAB6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241A3FDC2B02ABF7000DCAB6 /* ContentView.swift */; };
 		241A3FDF2B02AC06000DCAB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 241A3FDE2B02AC06000DCAB6 /* Assets.xcassets */; };
@@ -28,6 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2418F7652B1E359D00D5D74F /* BookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookView.swift; sourceTree = "<group>"; };
 		241A3FD72B02ABF7000DCAB6 /* BookCollect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookCollect.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		241A3FDA2B02ABF7000DCAB6 /* BookCollectApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookCollectApp.swift; sourceTree = "<group>"; };
 		241A3FDC2B02ABF7000DCAB6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 				45C948BC2B03F34A00577F26 /* Scan */,
 				45C948BB2B03F34200577F26 /* Map */,
 				241A3FDC2B02ABF7000DCAB6 /* ContentView.swift */,
+				2418F7652B1E359D00D5D74F /* BookView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -265,6 +268,7 @@
 				45C0C8BA2B18208C00479003 /* RecView.swift in Sources */,
 				450167E52B15157500718688 /* Location.swift in Sources */,
 				241A3FDB2B02ABF7000DCAB6 /* BookCollectApp.swift in Sources */,
+				2418F7662B1E359D00D5D74F /* BookView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

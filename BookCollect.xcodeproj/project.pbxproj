@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2418F7622B1E276C00D5D74F /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 2418F7612B1E276C00D5D74F /* CodeScanner */; };
 		241A3FDB2B02ABF7000DCAB6 /* BookCollectApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241A3FDA2B02ABF7000DCAB6 /* BookCollectApp.swift */; };
 		241A3FDD2B02ABF7000DCAB6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241A3FDC2B02ABF7000DCAB6 /* ContentView.swift */; };
 		241A3FDF2B02AC06000DCAB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 241A3FDE2B02AC06000DCAB6 /* Assets.xcassets */; };
@@ -53,6 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2418F7622B1E276C00D5D74F /* CodeScanner in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -188,6 +190,9 @@
 			dependencies = (
 			);
 			name = BookCollect;
+			packageProductDependencies = (
+				2418F7612B1E276C00D5D74F /* CodeScanner */,
+			);
 			productName = BookCollect;
 			productReference = 241A3FD72B02ABF7000DCAB6 /* BookCollect.app */;
 			productType = "com.apple.product-type.application";
@@ -216,6 +221,9 @@
 				Base,
 			);
 			mainGroup = 241A3FCE2B02ABF7000DCAB6;
+			packageReferences = (
+				2418F7602B1E276C00D5D74F /* XCRemoteSwiftPackageReference "CodeScanner" */,
+			);
 			productRefGroup = 241A3FD82B02ABF7000DCAB6 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -389,8 +397,10 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BookCollect/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "App \"BookCollect\" wants to gain access to your Camera";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "App \"BookCollect\" wants to gain access to your location.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "App \"BookCollect\" wants to gain access to your location.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "App \"BookCollect\" wants to gain access to your Photo Library";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -421,8 +431,10 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BookCollect/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "App \"BookCollect\" wants to gain access to your Camera";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "App \"BookCollect\" wants to gain access to your location.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "App \"BookCollect\" wants to gain access to your location.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "App \"BookCollect\" wants to gain access to your Photo Library";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -463,6 +475,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2418F7602B1E276C00D5D74F /* XCRemoteSwiftPackageReference "CodeScanner" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/twostraws/CodeScanner.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2418F7612B1E276C00D5D74F /* CodeScanner */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2418F7602B1E276C00D5D74F /* XCRemoteSwiftPackageReference "CodeScanner" */;
+			productName = CodeScanner;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 241A3FCF2B02ABF7000DCAB6 /* Project object */;
 }

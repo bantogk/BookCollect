@@ -96,3 +96,9 @@ struct RecView: View {
         }//Zstack
     }//body
 }//view
+
+//struct RecView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        RecView().environmentObject(TabRouter())
+//    }
+//}

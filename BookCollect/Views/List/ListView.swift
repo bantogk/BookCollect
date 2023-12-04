@@ -28,7 +28,13 @@ struct ListView: View {
     }//body
 }//struct
 
-#Preview {
-    ListView()
-        .environmentObject(TabRouter())
-}
+// Not Swift 5.7 compatible
+//#Preview {
+//    ListView().environmentObject(TabRouter())
+//}
+
+//struct ListView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ListView().environmentObject(TabRouter())
+//    }
+//}

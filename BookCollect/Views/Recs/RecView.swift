@@ -1,98 +1,138 @@
 // Melissa Munoz / Eli - 991642239
 
-/* TO DO: Save recommendations to subcollections in database */
 
 import SwiftUI
 
 struct RecView: View {
-    @State private var category: String = "adventure"
+    @State private var category: String = ""
     @EnvironmentObject var bookManager: BookManager
+    @EnvironmentObject var firebaseHelper : FireDBHelper
     @State private var bookList: [Books] = [Books]()
     
     var body: some View {
-        ZStack {
-            VStack {
-                Text("I heard you like \(category)")
-                    .font(.title)
-                Text("Here are some recommendations you might like...")
-                    .font(.caption)
+        VStack {
+            
+            if self.bookManager.bookList.items.isEmpty {
+                VStack{
+                    HStack{
+                        
+                        ProgressView()
+                            .controlSize(.large)
+                        Text("Loading...")
+                            .font(.headline)
+                            .bold()
+                            .padding()
+                        
+                    }
+                    Text("Currently catching dust bunnies! Please wait!")
+                        .font(.caption)
+                }.background(.white)
                 
-                if self.bookManager.bookList.items.isEmpty {
-                    Text("No data received from API")
-                } else {
-                    List {
-                        ForEach(self.bookManager.bookList.items.indices, id: \.self) { bookIndex in
-                            let book = self.bookManager.bookList.items[bookIndex]
-                            
-                            NavigationLink(
-                                destination: RecDetails(bookList: self.bookList, category: self.category, selectedIndex: bookIndex).environmentObject(self.bookManager)
-                            ) {
-                                VStack {
-                                    
-                                    if let bookImage = book.volumeInfo.image {
-                                        Image(uiImage: bookImage)
-                                        //                                            .resizable()
-                                        //                                            .aspectRatio(contentMode: .fit)
-                                        //                                            .frame(width: 300, height: 100)
-                                        //                                            .padding()
-                                    } else {
-                                        Text("No image available")
-                                            .padding()
-                                    }
-                                    
-                                    LabeledContent {
-                                        Text("\(book.volumeInfo.title)")
-                                    } label: {
-                                        Text("Title:")
-                                    }
-                                    
-                                    LabeledContent {
-                                        Text("\(book.volumeInfo.authors.joined(separator: ", "))")
-                                    } label: {
-                                        Text("Author:")
-                                    }
-                                    
-                                    LabeledContent {
-                                        if let categories = book.volumeInfo.categories {
-                                            Text("\(categories.joined(separator: ", "))")
-                                        } else {
-                                            Text("No categories available")
-                                        }
-                                    } label: {
-                                        Text("Categories:")
-                                    }
-                                    
-                                    LabeledContent {
-                                        if let firstIndustryIdentifier = book.volumeInfo.industryIdentifiers.first {
-                                            Text("\(firstIndustryIdentifier.identifier)")
-                                                .font(.caption)
-                                        } else {
-                                            Text("No identifier available")
-                                        }
-                                    } label: {
-                                        Text("ISBN:")
-                                    }
-                                    
-                                    LabeledContent {
-                                        Text("\(book.volumeInfo.averageRating?.description ?? "??") / 5 stars")
-                                    } label: {
-                                        Text("Rating")
-                                    }
-                                    
-                                    Text("\(book.volumeInfo.description)")
-                                        .lineLimit(3)
-                                    
-                                }//VStack
-                            }//NavLink
-                        }//ForEach
-                    }//List
-                    .listStyle(.inset)
-                    .listRowSeparator(.visible)
-                }//if-else
-            }//Vstack
-            .onAppear() {
-                bookManager.getBooks(category: category)
-            }//onAppear
-        }//Zstack
+            } else {
+                VStack{
+                    Text("I heard you like")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .fontWeight(.bold)
+                    Text("\(self.category)")
+                        .font(.largeTitle)
+                        .foregroundColor(.white)
+                        .fontWeight(.heavy)
+                    Text("books.")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .font(.title)
+                        .fontWeight(.bold)
+                }.padding()
+                List {
+                    
+                    ForEach(self.bookManager.bookList.items.indices, id: \.self) { bookIndex in
+                        let book = self.bookManager.bookList.items[bookIndex]
+                        
+                        NavigationLink(
+                            destination: RecDetails(book: self.bookManager.bookList.items[bookIndex], category: self.category).environmentObject(self.bookManager)
+                        ) {
+                            VStack {
+                                
+                                if let bookURL = book.volumeInfo.imageLinks?.thumbnail {
+                                    AsyncImage(url: bookURL)       .padding()
+                                } else {
+                                    Text("No image available :(")
+                                        .padding()
+                                        .font(.subheadline)
+                                }
+                                
+                                LabeledContent {
+                                    Text("\(book.volumeInfo.title)")
+                                        .font(.subheadline)
+                                } label: {
+                                    Text("Title:")
+                                }
+                                
+                                LabeledContent {
+                                    Text("\(book.volumeInfo.authors.joined(separator: ", "))")
+                                        .font(.subheadline)
+                                } label: {
+                                    Text("Author:")
+                                }
+                                
+                                LabeledContent {
+                                    Text("\(book.volumeInfo.averageRating?.description ?? "??") / 5 stars")
+                                        .font(.subheadline)
+                                } label: {
+                                    Text("Rating")
+                                }
+                                
+                                Text("\(book.volumeInfo.description)")
+                                    .lineLimit(3)
+                                
+                            }//VStack
+                        }//NavLink
+                    }//ForEach
+                }//List
+                .listStyle(.insetGrouped)
+                .listRowSeparator(.visible)
+            }//if-else
+        }//Vstack
+//        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(.pink)
+        .clipped()
+        .onAppear() {
+            self.firebaseHelper.retrieveAllBooks()
+            //                print(#function, "\n\n\(self.firebaseHelper.bookList.first?.bookGenre)\n\n")
+            
+            //What this does: execute the following code block on the main queue after a delay of 2 seconds from the current time.
+            //Ensures that retrieveallbooks is done before this operation works
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                self.pickRandomGenre(from: self.firebaseHelper.bookList)
+                bookManager.getBooks(category: self.category)
+            }
+            
+            //                self.pickRandomGenre(from: self.firebaseHelper.bookList)
+            //                bookManager.getBooks(category: self.category)
+        }//onAppear
     }//body
+    
+    func pickRandomGenre(from books: [BookFirebase]){
+        //unique
+        var genres: Set<String> = []
+        
+        //get all books
+        for book in books {
+            if !genres.contains(book.bookGenre) {
+                genres.insert(book.bookGenre)
+            }
+        }
+        
+        //if its not empty, pick a random index and assign category to variable
+        if !genres.isEmpty {
+            let index = Int.random(in: 0..<genres.count)
+            let randomGenre = genres.index(genres.startIndex, offsetBy: index)
+            self.category = genres[randomGenre]
+            print(#function, "Category: \(self.category)")
+        } else {
+            print(#function, "no genres found")
+        }
+    }
+    
 }//view

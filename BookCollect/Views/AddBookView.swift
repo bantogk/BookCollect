@@ -84,7 +84,7 @@ struct AddBookView: View {
     }
     
     func addBook(){
-        let newBook = Book(bookName: bookName, author: author, language: language, publisher: publisher, bookPages: Int(bookPages) ?? 0, releaseYear: Int(releaseYear) ?? 0, bookGenre: bookGenre[selectedOption1], bookType: bookType[selectedOption2])
+        let newBook = BookFirebase(bookName: bookName, author: author, language: language, publisher: publisher, bookPages: Int(bookPages) ?? 0, releaseYear: Int(releaseYear) ?? 0, bookGenre: bookGenre[selectedOption1], bookType: bookType[selectedOption2])
         
 //        //save the student info in database
         self.dbHelper.insertBook(book: newBook)

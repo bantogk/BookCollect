@@ -9,7 +9,7 @@ import Foundation
 import FirebaseFirestoreSwift
 
 
-struct Book : Codable, Hashable{
+struct BookFirebase : Codable, Hashable{
     
     @DocumentID var id : String? = UUID().uuidString
     

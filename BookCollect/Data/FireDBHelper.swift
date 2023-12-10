@@ -10,7 +10,7 @@ import FirebaseFirestore
 
 class FireDBHelper : ObservableObject{
     
-    @Published var bookList = [Book]()
+    @Published var bookList = [BookFirebase]()
     
     private let db : Firestore
     
@@ -42,7 +42,7 @@ class FireDBHelper : ObservableObject{
         return self.shared!
     }
     
-    func insertBook(book : Book){
+    func insertBook(book : BookFirebase){
         do{
             
             try self.db.collection(COLLECTION_NAME).addDocument(from: book)
@@ -84,7 +84,7 @@ class FireDBHelper : ObservableObject{
                         
                         do{
                             //obtain the document as Student class object
-                            let book = try docChange.document.data(as: Book.self)
+                            let book = try docChange.document.data(as: BookFirebase.self)
                             
                             print(#function, "book from db : id : \(book.id) bookname : \(book.bookName)")
                             
@@ -157,7 +157,7 @@ class FireDBHelper : ObservableObject{
                     result.documentChanges.forEach{ (docChange) in
                         //try to convert the firestore document to Student object and update the studentList
                         do{
-                            let book = try docChange.document.data(as: Book.self)
+                            let book = try docChange.document.data(as: BookFirebase.self)
                             
                             if docChange.type == .added{
                                 self.bookList.append(book)

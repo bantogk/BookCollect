@@ -36,12 +36,25 @@ struct MapView: View {
                         .padding()
                         .offset(y: 44)
                     
+                    
+                    
+                    
                 }
             }//VStack
             .onAppear(){
                 self.getNearByLocations(search:"Book")
                 
             }
+            .toolbar {
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    
+                    NavigationLink(destination: FavLocationsView()){
+                        Image(systemName: "star.fill")
+                            .foregroundColor(.yellow)
+                            .padding()
+                    }
+                }
+        }
         }//ZStack
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(.yellow)

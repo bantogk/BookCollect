@@ -9,11 +9,13 @@ struct SheetView: View {
     @State var locations: [Location]
     @State private var showAlert: Bool = false
     @State private var selectedLocation: Location?
-    
+    @EnvironmentObject var firebaseHelper : FireDBHelper
     
     var body: some View {
         VStack {
             Spacer()
+            
+            
             
             List {
                 
@@ -29,14 +31,18 @@ struct SheetView: View {
                         
                     }label:{
                         
-                        VStack(alignment: .leading) {
-                            Text(location.name)
-                                .fontWeight(.bold)
+                        HStack(alignment: .lastTextBaseline){
                             
-                            Text(location.title)
-                                .foregroundColor(.black)
                             
-                        }//VStack
+                            
+                            VStack(alignment: .leading) {
+                                Text(location.name)
+                                    .fontWeight(.bold)
+                                
+                                Text(location.title)
+                                    .foregroundColor(.black)
+                            }//VStack
+                        }//HStack
                         .padding()
                     }//Button
                     
@@ -51,8 +57,14 @@ struct SheetView: View {
                     title: Text("Favourite \(selectedLocation.name)?"),
                     message: Text("Allow us to manage your favourites locations."),
                     primaryButton: .default(
-                        Text("Save")
-                        // action: saveWorkoutData
+                        Text("Save"),
+                        action: {
+                            
+                            let locationFirebase = selectedLocation.convertToLocationFirebase()
+
+                            //add to database
+                            self.firebaseHelper.insertLocation(location: locationFirebase)
+                        }
                     ),
                     secondaryButton: .destructive(
                         Text("Cancel")

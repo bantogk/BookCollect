@@ -12,6 +12,9 @@ class FireDBHelper : ObservableObject{
     
     @Published var bookList = [BookFirebase]()
     
+    @Published var locationList = [LocationFirebase]()
+
+    
     private let db : Firestore
     
     //singleton design pattern
@@ -29,6 +32,13 @@ class FireDBHelper : ObservableObject{
     private let ATTRIBUTE_GEN = "bookGenre"
     private let ATTRIBUTE_TYPE = "bookType"
     
+    
+    private let COLLECTION_LNAME = "Locations"
+    private let ATTRIBUTE_LNAME = "name"
+    private let ATTRIBUTE_LTITLE = "title"
+    private let ATTRIBUTE_LLATITUDE = "latitude"
+    private let ATTRIBUTE_LLONGITUDE = "longitude"
+    
     private init(database : Firestore){
         self.db = database
     }
@@ -44,7 +54,7 @@ class FireDBHelper : ObservableObject{
     
     func insertBook(book : BookFirebase){
         do{
-            
+           // if(book.bookName == self.db.collection(COLLECTION_NAME).document() )
             try self.db.collection(COLLECTION_NAME).addDocument(from: book)
             
         }catch let err as NSError{
@@ -141,7 +151,7 @@ class FireDBHelper : ObservableObject{
             
             self.db
                 .collection(COLLECTION_NAME)
-                .whereField("bookName", isGreaterThanOrEqualTo: bname)
+                .whereField("bookName", isEqualTo: bname)
 //                .whereField("gpa", isGreaterThan: 3.4 )
 //                .whereField("firstname", in: [fname, "Amy", "James])
 //                .order(by: "gpa", descending: true)
@@ -206,6 +216,62 @@ class FireDBHelper : ObservableObject{
                 }
                 
             }
+    }
+    
+    
+    
+    
+    
+    
+    //Locations
+    func insertLocation(location: LocationFirebase) {
+        do {
+            try self.db.collection(COLLECTION_LNAME).addDocument(from: location)
+        } catch let err as NSError {
+            print(#function, "Unable to insert: \(err)")
+        }
+    }
+    
+    func deleteLocation(docIDtoDelete: String) {
+        self.db.collection(COLLECTION_LNAME).document(docIDtoDelete).delete { error in
+            if let err = error {
+                print(#function, "Unable to delete: \(err)")
+            } else {
+                print(#function, "Document deleted successfully")
+            }
+        }
+    }
+    
+    func retrieveAllLocations() {
+        self.db.collection(COLLECTION_LNAME).addSnapshotListener { [weak self] snapshot, error in
+            guard let result = snapshot else {
+                print(#function, "Unable to retrieve snapshot: \(error ?? "Unknown Error" as! Error)")
+                return
+            }
+            
+            result.documentChanges.forEach { docChange in
+                do {
+                    let location = try docChange.document.data(as: LocationFirebase.self)
+                    
+                    if docChange.type == .added {
+                        self?.locationList.append(location)
+                    }
+                    
+                    if docChange.type == .modified {
+                        // Handle modified document if needed
+                    }
+                    
+                    if docChange.type == .removed {
+                        if let index = self?.locationList.firstIndex(where: { $0.id == location.id }) {
+                            self?.locationList.remove(at: index)
+                        }
+                    }
+                    
+                } catch let err as NSError {
+                    print(#function, "Unable to access document change: \(err)")
+                }
+            }
+        }
     }
     
 }

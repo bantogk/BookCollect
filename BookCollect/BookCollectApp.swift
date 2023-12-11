@@ -22,10 +22,10 @@ struct BookCollectApp: App {
     
     var body: some Scene {
         WindowGroup {
-              //ContentView(locations: locations)
-               // .environmentObject(self.locationHelper)
-                //.environmentObject(self.bookManager).environmentObject(fireDBHelper)
-            AddBookView().environmentObject(fireDBHelper)
+              ContentView(locations: locations)
+                .environmentObject(self.locationHelper)
+                .environmentObject(self.bookManager).environmentObject(fireDBHelper)
+//            AddBookView().environmentObject(fireDBHelper)
         }
     }
 }

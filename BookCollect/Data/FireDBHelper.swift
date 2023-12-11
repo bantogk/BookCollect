@@ -38,6 +38,7 @@ class FireDBHelper : ObservableObject{
     private let ATTRIBUTE_LTITLE = "title"
     private let ATTRIBUTE_LLATITUDE = "latitude"
     private let ATTRIBUTE_LLONGITUDE = "longitude"
+    private let ATTRIBUTE_LLDATE = "date"
     
     private init(database : Firestore){
         self.db = database
@@ -243,7 +244,9 @@ class FireDBHelper : ObservableObject{
     }
     
     func retrieveAllLocations() {
-        self.db.collection(COLLECTION_LNAME).addSnapshotListener { [weak self] snapshot, error in
+        self.db.collection(COLLECTION_LNAME)
+            .order(by: ATTRIBUTE_LLDATE, descending: false)
+            .addSnapshotListener { [weak self] snapshot, error in
             guard let result = snapshot else {
                 print(#function, "Unable to retrieve snapshot: \(error ?? "Unknown Error" as! Error)")
                 return

@@ -11,12 +11,15 @@ struct LocationFirebase: Codable, Hashable {
     var latitude: Double
     var longitude: Double
     
-    init(id: String? = nil, name: String, title: String, latitude: Double, longitude: Double) {
+    var date : Date
+    
+    init(id: String? = nil, name: String, title: String, latitude: Double, longitude: Double, date: Date) {
         self.id = id
         self.name = name
         self.title = title
         self.latitude = latitude
         self.longitude = longitude
+        self.date = date
     }
     
     // Initialize from a dictionary
@@ -24,11 +27,12 @@ struct LocationFirebase: Codable, Hashable {
         guard let name = dictionary["name"] as? String,
               let title = dictionary["title"] as? String,
               let latitude = dictionary["latitude"] as? Double,
+              let date = dictionary["date"] as? Date,
               let longitude = dictionary["longitude"] as? Double else {
             return nil
         }
         
-        self.init(id: nil, name: name, title: title, latitude: latitude, longitude: longitude)
+        self.init(id: nil, name: name, title: title, latitude: latitude, longitude: longitude, date: date)
     }
     
     // Convert to a dictionary for Firestore

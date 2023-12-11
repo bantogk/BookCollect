@@ -17,7 +17,9 @@ struct ViewBooksView: View {
                     ForEach(self.dbHelper.bookList.enumerated().map({$0}), id: \.element.self){ index, book in
                         
                         NavigationLink{
-                           // BookDetailsView(selectedBookIndex : index).environmentObject(self.dbHelper)
+                        
+//                            BookDetailsView(selectedBookIndex : index).environmentObject(self.dbHelper)
+//                            
                         }label: {
                             HStack{
                                 Text(book.bookName ?? "NA")

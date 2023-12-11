@@ -24,13 +24,18 @@ struct Location: Identifiable, Hashable {
         self.placemark.coordinate
     }
     
+    var date: Date{
+        return Date()
+    }
+    
     func convertToLocationFirebase() -> LocationFirebase {
             let locationFirebase = LocationFirebase(
                 id: nil,
                 name: self.name,
                 title: self.title,
                 latitude: self.coordinate.latitude,
-                longitude: self.coordinate.longitude
+                longitude: self.coordinate.longitude,
+                date: self.date
             )
             return locationFirebase
         }

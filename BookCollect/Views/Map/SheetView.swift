@@ -62,8 +62,13 @@ struct SheetView: View {
                             
                             let locationFirebase = selectedLocation.convertToLocationFirebase()
 
+                            if !self.firebaseHelper.locationList.contains(where: { $0.name == locationFirebase.name }) {
+                                self.firebaseHelper.insertLocation(location: locationFirebase)
+                            }else{
+                                print(#function, "Location is already favourited")
+                            }
                             //add to database
-                            self.firebaseHelper.insertLocation(location: locationFirebase)
+                            
                         }
                     ),
                     secondaryButton: .destructive(

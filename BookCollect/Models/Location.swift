@@ -23,4 +23,16 @@ struct Location: Identifiable, Hashable {
     var coordinate: CLLocationCoordinate2D {
         self.placemark.coordinate
     }
+    
+    func convertToLocationFirebase() -> LocationFirebase {
+            let locationFirebase = LocationFirebase(
+                id: nil,
+                name: self.name,
+                title: self.title,
+                latitude: self.coordinate.latitude,
+                longitude: self.coordinate.longitude
+            )
+            return locationFirebase
+        }
+    
 }

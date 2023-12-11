@@ -20,6 +20,7 @@ struct ContentView: View {
     @StateObject var router = TabRouter()
     @EnvironmentObject var locationHelper : LocationHelper
     @EnvironmentObject var bookManager : BookManager
+    @EnvironmentObject var dbHelper : FireDBHelper
     let locations: [Location]
 
     

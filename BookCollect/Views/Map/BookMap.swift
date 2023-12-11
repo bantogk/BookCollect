@@ -1,5 +1,5 @@
 // Melissa Munoz / Eli - 991642239
-
+//references: https://youtu.be/WTzBKOe7MmU?si=OMozbW-os4O_EgzH
 
 
 import Foundation
@@ -9,7 +9,6 @@ import MapKit
 class Coordinator: NSObject, MKMapViewDelegate {
     
     var control: BookMap
-
     
     init(_ control: BookMap) {
         self.control = control
@@ -34,7 +33,7 @@ class Coordinator: NSObject, MKMapViewDelegate {
 struct BookMap : UIViewRepresentable{
     
     let locations: [Location]
-
+    
     typealias UIViewType = MKMapView
     
     @EnvironmentObject var locationHelper : LocationHelper
@@ -53,7 +52,7 @@ struct BookMap : UIViewRepresentable{
         
         
         let map = MKMapView()
-
+        
         map.isZoomEnabled = true
         map.isScrollEnabled = true
         map.isPitchEnabled = true
@@ -71,7 +70,7 @@ struct BookMap : UIViewRepresentable{
     
     func updateUIView(_ uiView: MKMapView, context: UIViewRepresentableContext<BookMap>) {
         updateAnnotations(from: uiView)
-
+        
         let centerPoint : CLLocationCoordinate2D
         
         if (self.locationHelper.currentLocation != nil){
@@ -84,18 +83,12 @@ struct BookMap : UIViewRepresentable{
         let region = MKCoordinateRegion(center: centerPoint, span: span)
         
         uiView.setRegion(region, animated: true)
-        
-//        let pin = MKPointAnnotation()
-//        pin.coordinate = centerPoint
-//        pin.title = "Current Location"
-        
-//        uiView.addAnnotation(pin)
     }
     
-    private func updateAnnotations(from mapView: MKMapView) {
-        mapView.removeAnnotations(mapView.annotations)
+    private func updateAnnotations(from bookMap: MKMapView) {
+        bookMap.removeAnnotations(bookMap.annotations)
         let annotations = self.locations.map(LocationAnnotation.init)
-        mapView.addAnnotations(annotations)
+        bookMap.addAnnotations(annotations)
     }
     
 }

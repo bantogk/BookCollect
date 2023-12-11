@@ -1,82 +1,81 @@
 // Melissa Munoz / Eli - 991642239
-
+//references: https://youtu.be/WTzBKOe7MmU?si=OMozbW-os4O_EgzH
 
 import SwiftUI
 import MapKit
 
 
 struct SheetView: View {
-    @State private var search: String = ""
-    @State var locations: [Location] = [Location]()
-    @State private var tapped: Bool = false
-    
-    
-    private func getNearByLocations() {
-        
-        let request = MKLocalSearch.Request()
-        request.naturalLanguageQuery = search
-        
-        let search = MKLocalSearch(request: request)
-        search.start { (response, error) in
-            if let response = response {
-                
-                //get the locations
-                let mapItems = response.mapItems
-                
-                //now we can create an array of locations
-                self.locations = mapItems.map {
-                    Location(placemark: $0.placemark)
-                }//self.locations
-                
-            }//if/else
-            
-        }//search.start
-        
-    }//getNearBy:amdmarks
-    
-    func calculateOffset() -> CGFloat {
-        
-        if self.locations.count > 0 && !self.tapped {
-            return UIScreen.main.bounds.size.height - UIScreen.main.bounds.size.height / 4
-        }//if-else
-        else if self.tapped {
-            return 100
-        } else {
-            return UIScreen.main.bounds.size.height
-        }//else
-    }//calculateOffset
+    @State var locations: [Location]
+    @State private var showAlert: Bool = false
+    @State private var selectedLocation: Location?
+    @EnvironmentObject var firebaseHelper : FireDBHelper
     
     var body: some View {
         VStack {
-            HStack {
-                Image(systemName: "magnifyingglass")
-                
-                TextField("Search", text: $search, onEditingChanged: {_ in}){
-                    self.getNearByLocations()
-                }//onEditingChanged
-                .autocorrectionDisabled()
-                .keyboardType(.default)
-            }
-            .modifier(TextFieldGrayBackgroundColor())
-            
             Spacer()
+            
+            
             
             List {
                 
-                ForEach(self.locations, id: \.id) { location in
+                ForEach(self.locations, id: \.id) {
                     
-                    VStack(alignment: .leading) {
-                        Text(location.name)
-                            .fontWeight(.bold)
+                    location in
+                    
+                    Button{
                         
-                        Text(location.title)
-                    }//VStack
+                        print(#function, "Clicking \(location.name)")
+                        self.showAlert = true
+                        self.selectedLocation = location
+                        
+                    }label:{
+                        
+                        HStack(alignment: .lastTextBaseline){
+                            
+                            
+                            
+                            VStack(alignment: .leading) {
+                                Text(location.name)
+                                    .fontWeight(.bold)
+                                
+                                Text(location.title)
+                                    .foregroundColor(.black)
+                            }//VStack
+                        }//HStack
+                        .padding()
+                    }//Button
+                    
                 }//ForEach
                 
             }//List
+            .listStyle(.insetGrouped)
         }//VStack
+        .alert(isPresented: $showAlert) {
+            if let selectedLocation = self.selectedLocation {
+                return Alert(
+                    title: Text("Favourite \(selectedLocation.name)?"),
+                    message: Text("Allow us to manage your favourites locations."),
+                    primaryButton: .default(
+                        Text("Save"),
+                        action: {
+                            
+                            let locationFirebase = selectedLocation.convertToLocationFirebase()
+
+                            //add to database
+                            self.firebaseHelper.insertLocation(location: locationFirebase)
+                        }
+                    ),
+                    secondaryButton: .destructive(
+                        Text("Cancel")
+                        // action: deleteWorkoutData
+                    )
+                )
+            } else {
+                return Alert(title: Text("Error"), message: Text("Location not found"), dismissButton: .default(Text("OK")))
+            }
+        }
         .padding()
-//        .interactiveDismissDisabled()
         .presentationDetents([.height(200), .large])
     }
     

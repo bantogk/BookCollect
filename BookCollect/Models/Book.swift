@@ -31,7 +31,7 @@ struct Books: Identifiable, Codable {
 }
 
 struct BookItem: Identifiable, Codable {
-    var id: String // Assuming BookItem has its own ID
+    var id: String
     var volumeInfo: VolumeInfo
 
     enum CodingKeys: String, CodingKey {

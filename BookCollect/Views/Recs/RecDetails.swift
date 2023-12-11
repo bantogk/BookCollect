@@ -5,31 +5,107 @@ import SwiftUI
 struct RecDetails: View {
     
     @EnvironmentObject var bookManager : BookManager
-    @State var bookList : [Books]
+    @State var book : BookItem
     @State var category : String
-    var selectedIndex : Int = -1
     @State private var locations: [Location] = [Location]()
     
     var body: some View {
         VStack{
-            
-            Text("Good choice!")
-            
-            Text("")
-            
-            NavigationLink{
-                MapView()
-            }label: {
-                Text("Search the nearest Bookstores")
-                    .font(.title2)
+            Form{
+
+                Section{
+                    
+                    if let bookURL = book.volumeInfo.imageLinks?.thumbnail {
+                        AsyncImage(url: bookURL)
+                            .padding()
+                            .frame(maxWidth: .infinity, alignment: .center)
+                        
+                    } else {
+                        Text("No image available")
+                            .padding()
+                        
+                    }
+                    
+                    Text("\(self.book.volumeInfo.title)")
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                    //            if let bookImage = book.volumeInfo.image {
+                    //                Image(uiImage: bookImage)
+                    //                .resizable()
+                    //                .aspectRatio(contentMode: .fit)
+                    //                .frame(width: 300, height: 100)
+                    //                .padding()
+                    //            } else {
+                    //                Text("No image available")
+                    //                    .padding()
+                    //            }
+                    //
+                }//Section
+                
+                Section(header: Text("Details")){
+                    LabeledContent{
+                        Text("\(book.volumeInfo.averageRating?.description ?? "??") / 5 stars")
+                    }label:{
+                        Text("Average Rating:")
+                            .font(.headline)
+                        
+                    }
+                    
+                    LabeledContent{
+                        Text("\(book.volumeInfo.authors.joined(separator: ", "))")
+                    }label:{
+                        Text("Authors:")
+                            .font(.headline)
+                    }
+                    
+                    LabeledContent{
+                        if let categories = book.volumeInfo.categories {
+                            Text("\(categories.joined(separator: ", "))")
+                        }
+                    }label:{
+                        Text("Categories:")
+                            .font(.headline)
+                    }
+                    
+                    
+                    LabeledContent{
+                        if let firstIndustryIdentifier = book.volumeInfo.industryIdentifiers.first {
+                            Text("\(firstIndustryIdentifier.identifier)")
+                                .font(.caption)
+                        }
+                    }label:{
+                        Text("ISBN:")
+                            .font(.headline)
+                    }
+                    
+                    
+                }//Section
+                
+                Section(header: Text("Description")){
+                    Text("\(book.volumeInfo.description)")
+                }//Section
+            }//Form
+            HStack{
+                Spacer()
+                NavigationLink{
+                    MapView()
+                }label: {
+                    Text("Search near Bookstores")
+                        .font(.title2)
+                        .bold()
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(.pink)
+                .padding()
+                Spacer()
             }
-            .buttonStyle(.borderedProminent)
-            .tint(.blue)
-            
-        }
+        }//VStack
+        .navigationTitle("Book Details")
+        .navigationBarTitleDisplayMode(.inline)
         .onAppear(){
             
-            bookManager.getBooks(category: category)
+            bookManager.getBooks(category: self.category)
             
         }//OnAppear
         

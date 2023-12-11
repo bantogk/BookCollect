@@ -74,6 +74,8 @@ class BookManager : ObservableObject{
                                                             
                                                             
                                                             book.volumeInfo.image = image
+                                                            self.objectWillChange.send() // Notify SwiftUI of changes
+
                                                             
                                                             self.bookList.items[bookIndex] = book
                                                             
@@ -122,7 +124,7 @@ class BookManager : ObservableObject{
     
     //it will escape once it is completed
     func fetchImageFromAPI(from url: URL, withCompletion completion : @escaping(Data?) -> Void){
-        
+                
         let task = URLSession.shared.dataTask(with: url, completionHandler: {
             (data: Data?, response: URLResponse?, error: Error?) in
             

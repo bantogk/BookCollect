@@ -7,7 +7,7 @@ import SwiftUI
 struct RecView: View {
     @State private var category: String = "adventure"
     @EnvironmentObject var bookManager: BookManager
-    @State private var bookList: [Book] = [Book]() //bantogk: renamed class to Book to maintain consistency
+    @State private var bookList: [Books] = [Books]()
     
     var body: some View {
         ZStack {
@@ -27,8 +27,6 @@ struct RecView: View {
                             NavigationLink(
                                 destination: RecDetails(bookList: self.bookList, category: self.category, selectedIndex: bookIndex).environmentObject(self.bookManager)
                             ) {
-                                //bantogk: Moved VStack to BookView
-//                                BookView(book: Book)
                                 VStack {
                                     
                                     if let bookImage = book.volumeInfo.image {

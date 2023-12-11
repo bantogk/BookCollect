@@ -4,8 +4,7 @@
 import Foundation
 import UIKit
 
-//bantogk: renamed Books to Book as this is a struct not already an array of structs
-struct Book: Identifiable, Codable {
+struct Books: Identifiable, Codable {
     var id: String?
     var items: [BookItem]
 

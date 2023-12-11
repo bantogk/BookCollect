@@ -55,7 +55,7 @@ class FireDBHelper : ObservableObject{
     
     func insertBook(book : BookFirebase){
         do{
-            
+           // if(book.bookName == self.db.collection(COLLECTION_NAME).document() )
             try self.db.collection(COLLECTION_NAME).addDocument(from: book)
             
         }catch let err as NSError{
@@ -152,7 +152,7 @@ class FireDBHelper : ObservableObject{
             
             self.db
                 .collection(COLLECTION_NAME)
-                .whereField("bookName", isGreaterThanOrEqualTo: bname)
+                .whereField("bookName", isEqualTo: bname)
 //                .whereField("gpa", isGreaterThan: 3.4 )
 //                .whereField("firstname", in: [fname, "Amy", "James])
 //                .order(by: "gpa", descending: true)

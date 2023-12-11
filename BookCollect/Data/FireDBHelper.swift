@@ -219,11 +219,6 @@ class FireDBHelper : ObservableObject{
             }
     }
     
-    
-    
-    
-    
-    
     //Locations
     func insertLocation(location: LocationFirebase) {
         do {
@@ -276,6 +271,7 @@ class FireDBHelper : ObservableObject{
             }
         }
     }
+    
     
     
     

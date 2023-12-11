@@ -1,11 +1,14 @@
+// Melissa Munoz / Eli - 991642239
+
+
 import Foundation
+import MapKit
 import FirebaseFirestoreSwift
 import CoreLocation
 
 struct LocationFirebase: Codable, Hashable {
     
     @DocumentID var id: String?
-    
     var name: String
     var title: String
     var latitude: Double
@@ -13,8 +16,9 @@ struct LocationFirebase: Codable, Hashable {
     
     var date : Date
     
-    init(id: String? = nil, name: String, title: String, latitude: Double, longitude: Double, date: Date) {
-        self.id = id
+    
+    init(id: String?, name: String, title: String, latitude: Double, longitude: Double, date: Date) {
+        self.id = id ?? UUID().uuidString
         self.name = name
         self.title = title
         self.latitude = latitude
@@ -33,6 +37,13 @@ struct LocationFirebase: Codable, Hashable {
         }
         
         self.init(id: nil, name: name, title: title, latitude: latitude, longitude: longitude, date: date)
+    }
+    
+    func convertToLocation() -> Location {
+        // Create an MKPlacemark using the latitude and longitude
+        let coordinate = CLLocationCoordinate2D(latitude: self.latitude, longitude: self.longitude)
+        let placemark = MKPlacemark(coordinate: coordinate)
+        return Location(placemark: placemark)
     }
     
     // Convert to a dictionary for Firestore

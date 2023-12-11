@@ -1,5 +1,5 @@
 // Melissa Munoz / Eli - 991642239
-//references: https://youtu.be/WTzBKOe7MmU?si=OMozbW-os4O_EgzH
+//Reference: https://youtu.be/WTzBKOe7MmU?si=IdVnsKCnFjAsuPzC
 
 
 import Foundation
@@ -33,9 +33,10 @@ class Coordinator: NSObject, MKMapViewDelegate {
 struct BookMap : UIViewRepresentable{
     
     let locations: [Location]
-    
     typealias UIViewType = MKMapView
     
+    @EnvironmentObject var fireDBHelper : FireDBHelper
+
     @EnvironmentObject var locationHelper : LocationHelper
     
     //specify initial state to show the view
@@ -86,9 +87,32 @@ struct BookMap : UIViewRepresentable{
     }
     
     private func updateAnnotations(from bookMap: MKMapView) {
+        
         bookMap.removeAnnotations(bookMap.annotations)
-        let annotations = self.locations.map(LocationAnnotation.init)
-        bookMap.addAnnotations(annotations)
+        
+        // Convert self.locations to annotations
+        let annotations = self.locations.map { location in
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+            annotation.title = location.name
+            return annotation
+        }
+        
+        // Convert favourite locations to annotations
+        let favouriteAnnotations = self.fireDBHelper.locationList.map { location in
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
+            annotation.title = location.name
+            return annotation
+        }
+        
+        // Combine the two arrays
+        let allAnnotations = annotations + favouriteAnnotations
+        
+        // Add all annotations to the map
+        bookMap.addAnnotations(allAnnotations)
     }
+
+    
     
 }

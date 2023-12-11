@@ -1,3 +1,4 @@
+// Melissa Munoz / Eli - 991642239
 
 
 import SwiftUI
@@ -42,7 +43,7 @@ struct FavLocationsView: View {
                     }
                 }//List
                 
-                    
+                
                 
             }
             
@@ -51,11 +52,10 @@ struct FavLocationsView: View {
         .navigationTitle("Favourite Locations")
         .onAppear(){
             if self.dbHelper.locationList.isEmpty {
-                
                 self.dbHelper.retrieveAllLocations()
             }
         }//onAppear
-    
+        
     }//body
 }//struct
 

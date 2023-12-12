@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2418F7622B1E276C00D5D74F /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 2418F7612B1E276C00D5D74F /* CodeScanner */; };
+		2413FE262B27CAB60021EB64 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 2413FE252B27CAB60021EB64 /* CodeScanner */; };
 		241A3FDB2B02ABF7000DCAB6 /* BookCollectApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241A3FDA2B02ABF7000DCAB6 /* BookCollectApp.swift */; };
 		241A3FDD2B02ABF7000DCAB6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241A3FDC2B02ABF7000DCAB6 /* ContentView.swift */; };
 		241A3FDF2B02AC06000DCAB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 241A3FDE2B02AC06000DCAB6 /* Assets.xcassets */; };
@@ -107,6 +107,7 @@
 				AA837AFC2B255C5500A852CF /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				AA837B022B255C5500A852CF /* FirebaseAuth in Frameworks */,
 				AA837B062B255C5500A852CF /* FirebaseCrashlytics in Frameworks */,
+				2413FE262B27CAB60021EB64 /* CodeScanner in Frameworks */,
 				AA837B262B255C5500A852CF /* FirebaseRemoteConfigSwift in Frameworks */,
 				AA837B182B255C5500A852CF /* FirebaseInAppMessaging-Beta in Frameworks */,
 				AA837B0A2B255C5500A852CF /* FirebaseDatabaseSwift in Frameworks */,
@@ -292,6 +293,7 @@
 				AA837B252B255C5500A852CF /* FirebaseRemoteConfigSwift */,
 				AA837B272B255C5500A852CF /* FirebaseStorage */,
 				AA837B292B255C5600A852CF /* FirebaseStorageCombine-Community */,
+				2413FE252B27CAB60021EB64 /* CodeScanner */,
 			);
 			productName = BookCollect;
 			productReference = 241A3FD72B02ABF7000DCAB6 /* BookCollect.app */;
@@ -323,6 +325,7 @@
 			mainGroup = 241A3FCE2B02ABF7000DCAB6;
 			packageReferences = (
 				AA837AF42B255C5500A852CF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				2413FE242B27CAB60021EB64 /* XCRemoteSwiftPackageReference "CodeScanner" */,
 			);
 			productRefGroup = 241A3FD82B02ABF7000DCAB6 /* Products */;
 			projectDirPath = "";
@@ -584,6 +587,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		2413FE242B27CAB60021EB64 /* XCRemoteSwiftPackageReference "CodeScanner" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/twostraws/CodeScanner.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		AA837AF42B255C5500A852CF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -595,6 +606,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		2413FE252B27CAB60021EB64 /* CodeScanner */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2413FE242B27CAB60021EB64 /* XCRemoteSwiftPackageReference "CodeScanner" */;
+			productName = CodeScanner;
+		};
 		AA837AF52B255C5500A852CF /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = AA837AF42B255C5500A852CF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

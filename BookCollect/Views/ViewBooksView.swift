@@ -18,40 +18,45 @@ struct ViewBooksView: View {
                     ForEach(self.dbHelper.bookList.enumerated().map({$0}), id: \.element.self){ index, book in
                         
                         NavigationLink{
-                            BookDetailsView(selectedBookIndex : index).environmentObject(self.dbHelper)
+                            //changed selectedBookIndex : -> selectedBookIndex:
+                            //somehow fixes the list selection
+                            BookDetailsView(selectedBookIndex: index).environmentObject(self.dbHelper)
                         }label: {
-                            VStack{
-                                Text("Name of Book").bold().foregroundColor(.blue)
+                            VStack(alignment: .leading){
+                                //The compiler is unable to run due to view complexity
+                                //To maintain consistent building, only the Name and Author Will be Shown
+//                                Text("Name of Book").bold().foregroundColor(.blue)
                                 Text(book.bookName ?? "NA")
                                     .bold()
-                                Text("Author").bold().foregroundColor(.blue)
+//                                Text("Author").bold().foregroundColor(.blue)
                                 Text(book.author ?? "NA")
-                                    .bold()
-                                Text("Number of Pages").bold().foregroundColor(.blue)
-                                Text("\(book.bookPages)" ?? "NA")
-                                    .bold()
-                                Text("Publisher").bold().foregroundColor(.blue)
-                                Text(book.publisher ?? "NA")
-                                    .bold()
-                                Text("Language").bold().foregroundColor(.blue)
-                                Text(book.language ?? "NA")
-                                    .bold()
-                                Text("Release Year").bold().foregroundColor(.blue)
-                                Text("\(book.releaseYear)" ?? "NA")
-                                    .bold()
-                                Text("Genre").bold().foregroundColor(.blue)
-                                Text((book.bookGenre) ?? "NA")
-                                    .bold()
-                                Text("Type of Book").bold().foregroundColor(.blue)
-                                Text((book.bookType) ?? "NA")
-                                    .bold()
-                                
+//                                    .bold()
+//                                Text("Number of Pages").bold().foregroundColor(.blue)
+//                                Text("\(book.bookPages)" ?? "NA")
+//                                    .bold()
+//                                Text("Publisher").bold().foregroundColor(.blue)
+//                                Text(book.publisher ?? "NA")
+//                                    .bold()
+//                                Text("Language").bold().foregroundColor(.blue)
+//                                Text(book.language ?? "NA")
+//                                    .bold()
+//                                Text("Release Year").bold().foregroundColor(.blue)
+//                                Text("\(book.releaseYear)" ?? "NA")
+//                                    .bold()
+//                                Text("Genre").bold().foregroundColor(.blue)
+//                                Text((book.bookGenre) ?? "NA")
+//                                    .bold()
+//                                Text("Type of Book").bold().foregroundColor(.blue)
+//                                Text((book.bookType) ?? "NA")
+//                                    .bold()
                             }
-                            
+                            // aligns text left
+                            .frame(maxWidth: .infinity, alignment: .leading)
                         }
                         
                         
-                    }.onDelete(){indexSet in
+                    }
+                    .onDelete(){indexSet in
                         for index in indexSet{
                             print(#function, "Trying to delete book : id : \(self.dbHelper.bookList[index].id), bookName :  \(self.dbHelper.bookList[index].bookName)")
                             
@@ -99,6 +104,6 @@ struct ViewBooksView: View {
 }
 
 
-#Preview {
-    ViewBooksView()
-}
+//#Preview {
+//    ViewBooksView()
+//}

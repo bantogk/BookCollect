@@ -12,7 +12,7 @@ struct BookDetailsView: View {
     @EnvironmentObject var dbHelper : FireDBHelper
     @Environment(\.dismiss) var dismiss
     
-    public var selectedBookIndex : Int = -1
+    var selectedBookIndex : Int = -1
     
     @State private var bookName : String = ""
     
@@ -39,10 +39,10 @@ struct BookDetailsView: View {
     private var bookpages : Int{
         return Int(self.bookPages) ?? 0
     }
-    
-    init(selectedBookIndex : Int){
-        self.selectedBookIndex = selectedBookIndex
-    }
+    // Unneeded 
+//    init(selectedBookIndex : Int){
+//        self.selectedBookIndex = selectedBookIndex
+//    }
     
     var body: some View {
         
@@ -129,6 +129,6 @@ struct BookDetailsView: View {
     }
 }
 
-#Preview {
-    BookDetailsView(selectedBookIndex: -1)
-}
+//#Preview {
+//    BookDetailsView(selectedBookIndex: -1)
+//}

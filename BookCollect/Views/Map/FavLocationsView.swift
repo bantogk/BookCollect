@@ -13,6 +13,6 @@ struct FavLocationsView: View {
     }
 }
 
-#Preview {
-    FavLocationsView()
-}
+//#Preview {
+//    FavLocationsView()
+//}

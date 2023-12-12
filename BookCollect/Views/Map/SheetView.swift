@@ -1,5 +1,5 @@
 // Melissa Munoz / Eli - 991642239
-//references: https://youtu.be/WTzBKOe7MmU?si=OMozbW-os4O_EgzH
+//Reference: https://youtu.be/WTzBKOe7MmU?si=IdVnsKCnFjAsuPzC
 
 import SwiftUI
 import MapKit
@@ -62,8 +62,13 @@ struct SheetView: View {
                             
                             let locationFirebase = selectedLocation.convertToLocationFirebase()
 
+                            if !self.firebaseHelper.locationList.contains(where: { $0.name == locationFirebase.name }) {
+                                self.firebaseHelper.insertLocation(location: locationFirebase)
+                            }else{
+                                print(#function, "Location is already favourited")
+                            }
                             //add to database
-                            self.firebaseHelper.insertLocation(location: locationFirebase)
+                            
                         }
                     ),
                     secondaryButton: .destructive(

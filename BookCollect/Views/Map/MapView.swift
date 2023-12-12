@@ -1,14 +1,16 @@
 // Melissa Munoz / Eli - 991642239
-//references: https://youtu.be/WTzBKOe7MmU?si=OMozbW-os4O_EgzH
 
 import SwiftUI
 import MapKit
+
 
 struct MapView: View {
     
     //for tabview
     @EnvironmentObject var router : TabRouter
     @EnvironmentObject var locationHelper : LocationHelper
+    
+    @EnvironmentObject var fireDBHelper : FireDBHelper
     
     @State private var search: String = ""
     
@@ -35,14 +37,14 @@ struct MapView: View {
                     }.textFieldStyle(RoundedBorderTextFieldStyle())
                         .padding()
                         .offset(y: 44)
-                    
-                    
-                    
-                    
                 }
             }//VStack
             .onAppear(){
-                self.getNearByLocations(search:"Book")
+                if self.fireDBHelper.locationList.isEmpty {
+                    self.fireDBHelper.retrieveAllLocations()
+                }
+                //                self.fireDBHelper.retrieveAllLocations()
+                //                self.getFavouriteLocations()
                 
             }
             .toolbar {
@@ -51,16 +53,28 @@ struct MapView: View {
                     NavigationLink(destination: FavLocationsView()){
                         Image(systemName: "star.fill")
                             .foregroundColor(.yellow)
-                            .padding()
                     }
-                }
-        }
+                    
+                    Button(action: {
+                        self.refreshMap()
+                    }) {
+                        Image(systemName: "arrow.clockwise.circle.fill")
+                            .foregroundColor(.green)
+                    }
+                    
+                }//ToolbaritemGroup
+            }
         }//ZStack
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(.yellow)
         .clipped()
     }//body
-
+    
+    private func refreshMap() {
+        self.locations = []
+        self.search = ""
+        self.getNearByLocations(search: self.search)
+    }
     
     private func getNearByLocations(search : String) {
         
@@ -68,33 +82,33 @@ struct MapView: View {
         //Geocoding recommendations based off coordinations, but userQuery, Mklocalsearch is more common to use
         //A utility object for initiating map-based searches and processing the results.
         
-        let request = MKLocalSearch.Request()
-        request.naturalLanguageQuery = search
-        
-        let search = MKLocalSearch(request: request)
-        search.start { (response, error) in
+        DispatchQueue.main.async {
+            
+            let request = MKLocalSearch.Request()
+            request.naturalLanguageQuery = search
+            
+            let search = MKLocalSearch(request: request)
+            search.start { (response, error) in
                 if let response = response {
                     
-                    //get the locations
                     let mapItems = response.mapItems
                     
-                    //now we can create an array of locations
                     self.locations = mapItems.map {
                         Location(placemark: $0.placemark)
+                        
                     }//self.locations
                     
-                    //ensure to present Sheet
                     self.isSheetPresented = true
                     
-                    
-                }//if/else
-            
+                }
+            }//if/else
         }//search.start
         
     }//getNearBy
     
     
-  
+    
+    
 }//Struct
 
 //#Preview {

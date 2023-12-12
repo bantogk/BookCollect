@@ -1,5 +1,5 @@
 // Melissa Munoz / Eli - 991642239
-//references: https://youtu.be/WTzBKOe7MmU?si=OMozbW-os4O_EgzH
+//Reference: https://youtu.be/WTzBKOe7MmU?si=IdVnsKCnFjAsuPzC
 
 
 import Foundation
@@ -14,28 +14,44 @@ class Coordinator: NSObject, MKMapViewDelegate {
         self.control = control
     }
     
-    func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard let annotation = annotation as? LocationAnnotation else {
+            return nil
+        }
         
-        if let annotationView = views.first {
-            if let annotation = annotationView.annotation {
-                if annotation is MKUserLocation {
-                    
-                    let region = MKCoordinateRegion(center: annotation.coordinate, latitudinalMeters: 1000, longitudinalMeters: 1000)
-                    mapView.setRegion(region, animated: true)
-                    
-                }//ifAnnotation
-            }//annotationView
-        }//views.first
+        //this is for annotation customization
+        let identifier = "LocationAnnotation"
+        var annotationView: MKPinAnnotationView
         
-    }//mapView
+        if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKPinAnnotationView {
+            dequeuedView.annotation = annotation
+            annotationView = dequeuedView
+        } else {
+            annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            annotationView.canShowCallout = true
+        }
+        
+        // Set pin color
+        annotationView.pinTintColor = annotation.pinColor
+        
+        return annotationView
+    }
+
+
+
+
+
+
+        
 }//coordinator
 
 struct BookMap : UIViewRepresentable{
     
     let locations: [Location]
-    
     typealias UIViewType = MKMapView
     
+    @EnvironmentObject var fireDBHelper : FireDBHelper
+
     @EnvironmentObject var locationHelper : LocationHelper
     
     //specify initial state to show the view
@@ -87,8 +103,32 @@ struct BookMap : UIViewRepresentable{
     
     private func updateAnnotations(from bookMap: MKMapView) {
         bookMap.removeAnnotations(bookMap.annotations)
-        let annotations = self.locations.map(LocationAnnotation.init)
+        
+        // Convert locations to annotations
+        let annotations = self.locations.map { location in
+            return LocationAnnotation(location: location, title: location.name, subtitle: location.title, pinColor: UIColor.black)
+        }
+        
+        // Convert favourite locations to annotations
+        let favouriteAnnotations = self.fireDBHelper.locationList.compactMap { location -> LocationAnnotation? in
+            
+            //if it already exists...
+            let favoriteCoordinate = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
+            
+            if !self.locations.contains(where: { $0.coordinate.latitude == favoriteCoordinate.latitude && $0.coordinate.longitude == favoriteCoordinate.longitude }) {
+                return LocationAnnotation(
+                    location: location.convertToLocation(), title: location.name,
+                    subtitle: location.title, pinColor: UIColor.red)
+            }
+            return nil
+        }
+        
         bookMap.addAnnotations(annotations)
+        
+        bookMap.addAnnotations(favouriteAnnotations)
     }
+
+
+    
     
 }

@@ -73,7 +73,7 @@ struct ScanDetails: View {
                     AddBookView(book: bookItem)
                 }label: {
                     Text("Add Book")
-                        .font(.title2)
+                        .font(.largeTitle)
                         .bold()
                 }//NavigationLink
                 .buttonStyle(.borderedProminent)

@@ -14,7 +14,7 @@ struct ScanView: View {
     var scannerSheet : some View {
         CodeScannerView(
             codeTypes: [.ean13],
-            simulatedData: "9780345391803",
+            simulatedData: "9780441172719",
             completion: { response in
                 if case let .success(result) = response {
                     self.scannedCode = result.string
@@ -83,7 +83,7 @@ struct ScanView: View {
                         List {
                             
                             ForEach(self.bookManager.bookList.items.indices, id: \.self) { bookIndex in
-                                let book = self.bookManager.bookList.items[bookIndex]
+                                let book = self.bookManager.bookList.items[bookIndex].volumeInfo
                                 
                                 NavigationLink(
                                     destination: ScanDetails(
@@ -91,39 +91,28 @@ struct ScanView: View {
                                         isbn: self.scannedCode
                                     ).environmentObject(self.bookManager)
                                 ) {
-                                    VStack {
-                                        
-                                        if let bookURL = book.volumeInfo.imageLinks?.thumbnail {
-                                            AsyncImage(url: bookURL)       .padding()
+                                    HStack {
+                                        if let bookURL = book.imageLinks?.thumbnail {
+                                            AsyncImage(url: bookURL)
                                         } else {
                                             Text("Image N/A")
-                                                .padding()
                                                 .font(.subheadline)
                                         }
-                                        
-                                        LabeledContent {
-                                            Text("\(book.volumeInfo.title)")
+                                        Spacer()
+                                        VStack(alignment: .trailing) {
+                                            
+                                            Text(book.title)
+                                                .font(.headline)
+                                                .bold()
+                                            
+                                            Text("\(book.authors.joined(separator: ", "))")
                                                 .font(.subheadline)
-                                        } label: {
-                                            Text("Title:")
+                                            
+                                            let firstIndustryIdentifier = book.industryIdentifiers.first
+                                            Text(firstIndustryIdentifier?.identifier ?? "")
+                                                .font(.caption)
+                                            
                                         }
-                                        
-                                        LabeledContent {
-                                            Text("\(book.volumeInfo.authors.joined(separator: ", "))")
-                                                .font(.subheadline)
-                                        } label: {
-                                            Text("Author:")
-                                        }
-                                        
-                                        LabeledContent {
-                                            Text("\(book.volumeInfo.averageRating?.description ?? "??") / 5 stars")
-                                                .font(.subheadline)
-                                        } label: {
-                                            Text("Rating")
-                                        }
-                                        
-                                        Text("\(book.volumeInfo.description)")
-                                            .lineLimit(3)
                                         
                                     }//VStack
                                 }//NavLink

@@ -1,5 +1,4 @@
 // Melissa Munoz / Eli - 991642239
-//Reference: https://youtu.be/WTzBKOe7MmU?si=IdVnsKCnFjAsuPzC
 
 import SwiftUI
 import MapKit
@@ -41,7 +40,9 @@ struct MapView: View {
                 }
             }//VStack
             .onAppear(){
-                
+                if self.fireDBHelper.locationList.isEmpty {
+                    self.fireDBHelper.retrieveAllLocations()
+                }
                 //                self.fireDBHelper.retrieveAllLocations()
                 //                self.getFavouriteLocations()
                 
@@ -52,9 +53,16 @@ struct MapView: View {
                     NavigationLink(destination: FavLocationsView()){
                         Image(systemName: "star.fill")
                             .foregroundColor(.yellow)
-                            .padding()
                     }
-                }
+                    
+                    Button(action: {
+                        self.refreshMap()
+                    }) {
+                        Image(systemName: "arrow.clockwise.circle.fill")
+                            .foregroundColor(.green)
+                    }
+                    
+                }//ToolbaritemGroup
             }
         }//ZStack
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -62,6 +70,11 @@ struct MapView: View {
         .clipped()
     }//body
     
+    private func refreshMap() {
+        self.locations = []
+        self.search = ""
+        self.getNearByLocations(search: self.search)
+    }
     
     private func getNearByLocations(search : String) {
         

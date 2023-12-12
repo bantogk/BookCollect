@@ -14,20 +14,35 @@ class Coordinator: NSObject, MKMapViewDelegate {
         self.control = control
     }
     
-    func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard let annotation = annotation as? LocationAnnotation else {
+            return nil
+        }
         
-        if let annotationView = views.first {
-            if let annotation = annotationView.annotation {
-                if annotation is MKUserLocation {
-                    
-                    let region = MKCoordinateRegion(center: annotation.coordinate, latitudinalMeters: 1000, longitudinalMeters: 1000)
-                    mapView.setRegion(region, animated: true)
-                    
-                }//ifAnnotation
-            }//annotationView
-        }//views.first
+        //this is for annotation customization
+        let identifier = "LocationAnnotation"
+        var annotationView: MKPinAnnotationView
         
-    }//mapView
+        if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKPinAnnotationView {
+            dequeuedView.annotation = annotation
+            annotationView = dequeuedView
+        } else {
+            annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            annotationView.canShowCallout = true
+        }
+        
+        // Set pin color
+        annotationView.pinTintColor = annotation.pinColor
+        
+        return annotationView
+    }
+
+
+
+
+
+
+        
 }//coordinator
 
 struct BookMap : UIViewRepresentable{
@@ -87,31 +102,32 @@ struct BookMap : UIViewRepresentable{
     }
     
     private func updateAnnotations(from bookMap: MKMapView) {
-        
         bookMap.removeAnnotations(bookMap.annotations)
         
-        // Convert self.locations to annotations
+        // Convert locations to annotations
         let annotations = self.locations.map { location in
-            let annotation = MKPointAnnotation()
-            annotation.coordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-            annotation.title = location.name
-            return annotation
+            return LocationAnnotation(location: location, title: location.name, subtitle: location.title, pinColor: UIColor.black)
         }
         
         // Convert favourite locations to annotations
-        let favouriteAnnotations = self.fireDBHelper.locationList.map { location in
-            let annotation = MKPointAnnotation()
-            annotation.coordinate = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
-            annotation.title = location.name
-            return annotation
+        let favouriteAnnotations = self.fireDBHelper.locationList.compactMap { location -> LocationAnnotation? in
+            
+            //if it already exists...
+            let favoriteCoordinate = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
+            
+            if !self.locations.contains(where: { $0.coordinate.latitude == favoriteCoordinate.latitude && $0.coordinate.longitude == favoriteCoordinate.longitude }) {
+                return LocationAnnotation(
+                    location: location.convertToLocation(), title: location.name,
+                    subtitle: location.title, pinColor: UIColor.red)
+            }
+            return nil
         }
         
-        // Combine the two arrays
-        let allAnnotations = annotations + favouriteAnnotations
+        bookMap.addAnnotations(annotations)
         
-        // Add all annotations to the map
-        bookMap.addAnnotations(allAnnotations)
+        bookMap.addAnnotations(favouriteAnnotations)
     }
+
 
     
     

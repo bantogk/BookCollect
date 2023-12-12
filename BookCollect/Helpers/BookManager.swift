@@ -12,11 +12,11 @@ class BookManager : ObservableObject{
         //        self.getBooks()
     }
     
-    func getBooks(category: String){
+    func getBooks(newURL: String){
         
         print("GetBooks() Fetching data from API called")
         
-        let baseURL = "https://www.googleapis.com/books/v1/volumes?q=subject:\(category)&key=AIzaSyD61Fnw_bU96bpeA4SbvGZye2AjmlmCP5o"
+        let baseURL = newURL
         
         //convert string to URL type
         guard let apiURL = URL(string: baseURL) else{

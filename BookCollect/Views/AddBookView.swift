@@ -13,23 +13,41 @@ struct AddBookView: View {
     
     @Environment(\.dismiss) var dismiss
     
-    @State private var bookName : String = ""
+    @State private var bookName : String
     
-    @State private var bookPages : String = ""
+    @State private var bookPages : String
     
-    @State private var author : String = ""
+    @State private var author : String
     
-    @State private var language : String = ""
+    @State private var language : String
     
-    @State private var publisher : String = ""
+    @State private var publisher : String
     
-    @State private var releaseYear : String = ""
+    @State private var releaseYear : String
     
     @State private var selectedOption1 : Int = 0
     private var bookGenre = ["Adventure", "Mystery", "Drama", "Superhero", "Romance", "Horror", "Thriller", "Fantasy", "History", "Art", "Travel", "Philosophy"]
     
     @State private var selectedOption2 : Int = 0
     private var bookType = ["Fiction", "Non-Fiction"]
+    
+    init(){
+        _bookName = State(initialValue: "")
+        _bookPages = State(initialValue: "")
+        _author = State(initialValue: "")
+        _language = State(initialValue: "")
+        _publisher = State(initialValue: "")
+        _releaseYear = State(initialValue: "")
+    }
+
+    init(book: BookItem){
+        _bookName = State(initialValue: book.volumeInfo.title)
+        _bookPages = State(initialValue: String(book.volumeInfo.pageCount ?? 0) ?? "")
+        _author = State(initialValue: book.volumeInfo.authors[0])
+        _language = State(initialValue: book.volumeInfo.language ?? "")
+        _publisher = State(initialValue: book.volumeInfo.publisher ?? "")
+        _releaseYear = State(initialValue: book.volumeInfo.publishedDate ?? "")
+    }
     
     var body: some View {
         NavigationStack{
@@ -89,6 +107,7 @@ struct AddBookView: View {
         
 //        //save the student info in database
         self.dbHelper.insertBook(book: newBook)
+        dismiss()
     }
 }
 //#Preview {

@@ -66,6 +66,10 @@ struct VolumeInfo: Codable {
     var industryIdentifiers: [IndustryIdentifiers]
     var categories: [String]?
     
+    var language: String?
+    var pageCount: Int?
+    var publishedDate: String?
+    
     var imageLinks : ImageLinks?
     var image : UIImage?
     
@@ -80,19 +84,22 @@ struct VolumeInfo: Codable {
         case industryIdentifiers
         case categories
         case imageLinks
+        case language
+        case pageCount
+        case publishedDate
     }
     
-    init(title: String, authors: [String], publisher: String, description: String, industryIdentifiers: [IndustryIdentifiers], categories: [String]?, averageRating: Float, ratingsCount: Int, imageLinks: ImageLinks) {
-        self.title = title
-        self.authors = authors
-        self.publisher = publisher
-        self.description = description
-        self.ratingsCount = ratingsCount
-        self.averageRating = averageRating
-        self.industryIdentifiers = industryIdentifiers
-        self.categories = categories
-        self.imageLinks = imageLinks
-    }
+//    init(title: String, authors: [String], publisher: String, description: String, industryIdentifiers: [IndustryIdentifiers], categories: [String]?, averageRating: Float, ratingsCount: Int, imageLinks: ImageLinks) {
+//        self.title = title
+//        self.authors = authors
+//        self.publisher = publisher
+//        self.description = description
+//        self.ratingsCount = ratingsCount
+//        self.averageRating = averageRating
+//        self.industryIdentifiers = industryIdentifiers
+//        self.categories = categories
+//        self.imageLinks = imageLinks
+//    }
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -105,6 +112,9 @@ struct VolumeInfo: Codable {
         self.industryIdentifiers = try container.decodeIfPresent([IndustryIdentifiers].self, forKey: .industryIdentifiers) ?? [IndustryIdentifiers]()
         self.categories = try container.decodeIfPresent([String].self, forKey: .categories)
         self.imageLinks = try container.decodeIfPresent(ImageLinks.self, forKey: .imageLinks)
+        self.language = try container.decodeIfPresent(String.self, forKey: .language) ?? "NA"
+        self.pageCount = try container.decodeIfPresent(Int.self, forKey: .pageCount) ?? 0
+        self.publishedDate = try container.decodeIfPresent(String.self, forKey: .publishedDate) ?? "NA"
     }
     
     init() {
@@ -116,6 +126,9 @@ struct VolumeInfo: Codable {
         self.ratingsCount = 0
         self.industryIdentifiers = []
         self.categories = []
+        self.language = ""
+        self.pageCount = 0
+        self.publishedDate = ""
     }
 }
 

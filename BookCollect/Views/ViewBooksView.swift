@@ -21,8 +21,7 @@ struct ViewBooksView: View {
                         NavigationLink{
 
                             BookDetailsView(selectedBookIndex: index).environmentObject(self.dbHelper)
-
-                            BookDetailsView(selectedBookIndex : index).environmentObject(self.dbHelper)
+                            
                         }label: {
                             VStack(alignment : .leading){
                                 Text("Name of Book: \(book.bookName ?? "NA")").bold().foregroundColor(.blue)
@@ -47,7 +46,7 @@ struct ViewBooksView: View {
                     }
                     
                 }//List
-                .searchable(text: self.$searchText, prompt: "Search by Firstname")
+                .searchable(text: self.$searchText, prompt: "Search by Title")
                 .onChange(of: self.searchText){ _ in
                     self.runSearch()
                 }

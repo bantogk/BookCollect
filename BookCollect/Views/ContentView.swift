@@ -33,6 +33,7 @@ struct ContentView: View {
                 ScanView()
                     .tag(Screen.scan)
                     .environmentObject(router)
+                    .environmentObject(bookManager)
                     .tabItem{
                         Label("Scan", systemImage:"barcode.viewfinder")
                     }//scanTab

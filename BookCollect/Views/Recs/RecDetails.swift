@@ -105,7 +105,7 @@ struct RecDetails: View {
         .navigationBarTitleDisplayMode(.inline)
         .onAppear(){
             
-            bookManager.getBooks(category: self.category)
+            bookManager.getBooks(newURL: "https://www.googleapis.com/books/v1/volumes?q=subject:\(category)&key=AIzaSyD61Fnw_bU96bpeA4SbvGZye2AjmlmCP5o")
             
         }//OnAppear
         

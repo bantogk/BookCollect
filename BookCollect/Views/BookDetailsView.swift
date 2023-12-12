@@ -39,10 +39,10 @@ struct BookDetailsView: View {
     private var bookpages : Int{
         return Int(self.bookPages) ?? 0
     }
-    // Unneeded 
-//    init(selectedBookIndex : Int){
-//        self.selectedBookIndex = selectedBookIndex
-//    }
+      
+    init(selectedBookIndex : Int){
+        self.selectedBookIndex = selectedBookIndex
+    }
     
     var body: some View {
         
@@ -84,7 +84,7 @@ struct BookDetailsView: View {
             }//Form
                 
                 Button{
-                    self.updateStudent()
+                    self.updateBook()
                 }label: {
                     Text("Save Info")
                         .font(.title2)
@@ -111,7 +111,7 @@ struct BookDetailsView: View {
         
     }//body
     
-    private func updateStudent(){
+    private func updateBook(){
         
         //get the updated details from form and update the dbHelper studentList object
         self.dbHelper.bookList[selectedBookIndex].bookName = self.bookName
@@ -132,3 +132,4 @@ struct BookDetailsView: View {
 //#Preview {
 //    BookDetailsView(selectedBookIndex: -1)
 //}
+

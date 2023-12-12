@@ -1,8 +1,9 @@
+// Group 10
 //
 //  FireDBHelper.swift
 //  BookCollect
 //
-//  Created by Eli Munoz on 2023-11-14.
+//  Created by Eli Munoz - 991642239 & Christian - 991612602 on 2023-11-14.
 //
 
 import Foundation

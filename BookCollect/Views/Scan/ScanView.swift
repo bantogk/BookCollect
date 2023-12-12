@@ -1,3 +1,10 @@
+// Group 10
+//
+//  ScanView.swift
+//  BookCollect
+//
+//  Created by Kyelle - 991645909 on 2023-11-14.
+//
 
 import SwiftUI
 import CodeScanner

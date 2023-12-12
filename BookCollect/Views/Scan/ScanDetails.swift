@@ -1,8 +1,9 @@
+// Group 10
 //
 //  ScanDetails.swift
 //  BookCollect
 //
-//  Created by Kyelle on 2023-12-11.
+//  Created by Kyelle - 991645909 on 2023-12-11.
 //
 
 import SwiftUI
@@ -16,32 +17,58 @@ struct ScanDetails: View {
         let book = bookItem.volumeInfo
         VStack{
             Form{
-                Section{
+                Section(header: Text("Cover")){
                     if let bookURL = book.imageLinks?.thumbnail {
                         AsyncImage(url: bookURL)
                             .padding()
                             .frame(maxWidth: .infinity, alignment: .center)
                         
                     } else {
-                        Text("No image available")
+                        Text("Image N/A")
                             .padding()
                         
                     }
                 }
                 
-                Section(header: Text("Details")){
+                Section(header: Text("Author(s)")){
+                    Text("\(book.authors.joined(separator: ", "))")
+                        .bold()
+                }
+                
+                Section(header: Text("Additional Information")){
                     LabeledContent{
-                        Text("\(book.averageRating?.description ?? "??") / 5 stars")
+                        Text("\(book.averageRating?.description ?? "NA") / 5 stars")
                     }label:{
-                        Text("Average Rating:")
+                        Text("Rating:")
                             .font(.headline)
                         
                     }
                     
                     LabeledContent{
-                        Text("\(book.authors.joined(separator: ", "))")
+                        Text(String(book.pageCount ?? 0))
                     }label:{
-                        Text("Authors:")
+                        Text("# of Pages:")
+                            .font(.headline)
+                    }
+
+                    LabeledContent{
+                        Text(book.language ?? "NA")
+                    }label:{
+                        Text("Language:")
+                            .font(.headline)
+                    }
+
+                    LabeledContent{
+                        Text(book.publisher ?? "NA")
+                    }label:{
+                        Text("Publisher:")
+                            .font(.headline)
+                    }
+                    
+                    LabeledContent{
+                        Text(book.publishedDate ?? "NA")
+                    }label:{
+                        Text("Release Year:")
                             .font(.headline)
                     }
                     
@@ -54,20 +81,13 @@ struct ScanDetails: View {
                             .font(.headline)
                     }
                     
-                    
-                    LabeledContent{
-                        if let firstIndustryIdentifier = book.industryIdentifiers.first {
-                            Text("\(firstIndustryIdentifier.identifier)")
-                                .font(.caption)
-                        }
-                    }label:{
-                        Text("ISBN:")
-                            .font(.headline)
-                    }
-                    
-                    
+                }//Section
+                
+                Section(header: Text("Description")){
+                    Text("\(book.description)")
                 }//Section
             }//Form
+            
             HStack{
                 NavigationLink{
                     AddBookView(book: bookItem)
@@ -81,7 +101,9 @@ struct ScanDetails: View {
                 .padding()
             }//HStack
         }//VStack
+        .padding()
         .navigationTitle(book.title)
+        .navigationBarTitleDisplayMode(.large)
         .onAppear(){
             bookManager.getBooks(newURL: "https://www.googleapis.com/books/v1/volumes?q=isbn:\(isbn)&key=AIzaSyD61Fnw_bU96bpeA4SbvGZye2AjmlmCP5o")
         }

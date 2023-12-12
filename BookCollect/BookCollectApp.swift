@@ -1,4 +1,8 @@
-
+// Group 10
+//
+// Melissa Munoz - 991642239
+// Christian Mackenzie - 991612602
+// Kyelle Bantog - 991645909
 
 import SwiftUI
 import Firebase

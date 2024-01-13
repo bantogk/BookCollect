@@ -105,7 +105,7 @@ struct ScanDetails: View {
         .navigationTitle(book.title)
         .navigationBarTitleDisplayMode(.large)
         .onAppear(){
-            bookManager.getBooks(newURL: "https://www.googleapis.com/books/v1/volumes?q=isbn:\(isbn)&key=AIzaSyD61Fnw_bU96bpeA4SbvGZye2AjmlmCP5o")
+            bookManager.getBooks(newURL: "https://www.googleapis.com/books/v1/volumes?q=isbn:\(isbn)&key=APIKEYHERE")
         }
     }
 }

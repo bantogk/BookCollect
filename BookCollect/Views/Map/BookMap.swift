@@ -37,11 +37,6 @@ class Coordinator: NSObject, MKMapViewDelegate {
         return annotationView
     }
 
-
-
-
-
-
         
 }//coordinator
 

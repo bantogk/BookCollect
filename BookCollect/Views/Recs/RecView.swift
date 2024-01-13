@@ -106,7 +106,7 @@ struct RecView: View {
             //Ensures that retrieveallbooks is done before this operation works
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                 self.pickRandomGenre(from: self.firebaseHelper.bookList)
-                bookManager.getBooks(newURL: "https://www.googleapis.com/books/v1/volumes?q=subject:\(category)&key=AIzaSyD61Fnw_bU96bpeA4SbvGZye2AjmlmCP5o")
+                bookManager.getBooks(newURL: "https://www.googleapis.com/books/v1/volumes?q=subject:\(category)&key=APIKEYHERE")
             }
             
             //                self.pickRandomGenre(from: self.firebaseHelper.bookList)

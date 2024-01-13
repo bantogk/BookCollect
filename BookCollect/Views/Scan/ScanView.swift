@@ -40,7 +40,7 @@ struct ScanView: View {
     
     func requestByISBN(isbn: String){
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-            bookManager.getBooks(newURL: "https://www.googleapis.com/books/v1/volumes?q=isbn:\(isbn)&key=AIzaSyD61Fnw_bU96bpeA4SbvGZye2AjmlmCP5o")
+            bookManager.getBooks(newURL: "https://www.googleapis.com/books/v1/volumes?q=isbn:\(isbn)&key=APIKEYHERE")
         }
     }
     
